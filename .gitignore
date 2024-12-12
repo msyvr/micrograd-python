@@ -1,0 +1,22 @@
+# Byte-compiled Python files
+*.pyc
+*.pyo
+__pycache__/
+
+# Virtual environment directories
+venv/
+env/
+.venv/
+.env/
+
+# IDE files
+.idea/
+.vscode/
+*.swp
+
+# Manim output files
+media/
+output/
+
+# no files
+no-*
