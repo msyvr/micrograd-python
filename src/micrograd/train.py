@@ -7,10 +7,12 @@ from autograd import Value
 def train():
     '''
     This NN is set up as a binary classifier. 
-    Each input list maps to a single output. 
+    Each input list of values is associated with a target value.
+    and is mapmaps to a single output. 
     The targets list length is, thus, the number of 
     inputs used to train the model.
     '''
+    # set the number of training data points
     num_inputs = 5
     len_input = 3
 
@@ -22,14 +24,15 @@ def train():
     
     # Gradient descent parameters
     step_size = 0.05;
-    num_epochs = 100;
+    num_epochs = 20;
     # option: loss_function    
     tolerance = 0.05;
     
     # Eval loops
-    eval_loops = 10
+    eval_loops = 4
 
     # Set up the run!
+    print(f'context ')
     print(f'step={step_size} : max epochs={num_epochs} : {tolerance=} : activation function={activation_function} : repeat?={eval_loops} \n')    
     epochs = []
     losses = []
@@ -37,7 +40,12 @@ def train():
     # Eval loops.    
     for _ in range(eval_loops):
 
+        # The network will train on inputs that match to targets.
+        # The final network parameters enable the network to predict non-training
+        # dataset inputs.
+
         # Generate inputs and targets.
+        
         inputs = []    
         for _ in range(num_inputs):
             new_input = [round(random.uniform(-3., 3.)) for _ in range(len_input)]
@@ -63,6 +71,8 @@ def train():
                 
             # Break at performance metric or max epochs.
             metric = math.sqrt(summed_square_errors.data) / num_inputs
+            print(f"{epoch=}, loss={metric}")
+
             # TODO consider exp backoff strategy for step(error)       
             if metric <= tolerance or epoch == num_epochs - 1:
                 epochs.append(epoch + 1)

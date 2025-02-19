@@ -7,3 +7,5 @@ To experiment with a very simple binary classifier model that has randomly gener
 python train.py
 ```
 Parameters for step size, number of epochs, activation function, etc., can be updated in `train.py` to see the effects of each on model convergence to targets.
+
+## TODO
