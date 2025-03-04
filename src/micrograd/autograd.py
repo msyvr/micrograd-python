@@ -23,7 +23,7 @@ def draw_dot(root):
   
   nodes, edges = trace(root)
   for node in nodes:
-    uid = str(id(n))
+    uid = str(id(node))
     # create rectangular nodes for values
     dot.name(name = uid, label = "{ data %.4f }" % (node.data, ), shape='record')
     if node._op:
