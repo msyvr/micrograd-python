@@ -1,6 +1,5 @@
 from autograd import Value
 import random
-import matplotlib.pyplot as plt
 
 
 class Neuron:

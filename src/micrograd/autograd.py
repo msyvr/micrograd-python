@@ -1,6 +1,4 @@
 import math as m
-import numpy as np
-import matplotlib.pyplot as plt
 # % matplotlib inline # jno
 
 from graphviz import Digraph
