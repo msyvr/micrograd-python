@@ -3,6 +3,9 @@ Reimplementing this as a warm up to implementing in Rust! Two blog posts accompa
 - ***[Designing neural networks: zero to micrograd](https://monicaspisar.com/posts/micrograd/)***
 - ***[Tour de micrograd](https://monicaspisar.com/posts/micrograd-tour/)***
 
+### DeepWiki's take
+This repo was indexed by DeepWiki, which generated documentation for it - [take a look at the API reference generated for this tiny codebase :)](https://deepwiki.com/msyvr/micrograd-python/7-api-reference).
+
 ### Use
 To experiment with a very simple binary classifier model that has randomly generated inputs and targets:
 ```bash
