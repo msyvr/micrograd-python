@@ -4,9 +4,7 @@ import matplotlib.pyplot as plt
 from nn import MLP
 from autograd import Value
 
-def get_training_data(num_inputs, len_input):
-    # TODO parse args, define default
-    # Generate inputs and targets.        
+def generate_training_data(num_inputs, len_input):        
     inputs = []    
     for _ in range(num_inputs):
         new_input = [round(random.uniform(-3., 3.)) for _ in range(len_input)]
@@ -17,20 +15,19 @@ def get_training_data(num_inputs, len_input):
 
 def train(training_data, layer_nodes, activation, loss, tolerance, step_size, num_epochs):
     '''
-        The network will train on inputs that are matched to targets.
-    This should be data that resembles the kind of data we might 
-    want to run through our model. Thus, the trainin data consists
-    of an input vector matched to an output value. 
-    
-    Here, we train on randomly generated input-output pairs:
-    input(vector):output(value)
+    The network trains on inputs with corresponding targets. 
+    In other words, the training data is a collection of 
+    (input vector, output value) pairs.
+
+    Training is done `num_evals` times to evaluate training for a fixed
+    parameter set: { `num_epochs`, `tolerance`, `activation`, `loss` }.
            
-    The post-training network parameters enable the NN to predict 
-    outputs for non-training inputs similar to training inputs.    
+    The post-training network parameters define a neural network that,
+    nominally, can predict appropriate outputs for new inputs.
     
     '''
     
-    # Set up the run!
+    # Set up the run
     num_evals = len(training_data)
     print(f'Parameters:\n{step_size=} || max epochs={num_epochs} || {tolerance=} || {activation=} || {num_evals=} \n')    
     fig, axs = plt.subplots(num_evals)
@@ -104,7 +101,7 @@ if __name__ == "__main__":
     num_inputs = 5
     len_input = 3
     num_evals = 4    
-    training_data = [get_training_data(num_inputs, len_input) for _ in range(num_evals)]
+    training_data = [generate_training_data(num_inputs, len_input) for _ in range(num_evals)]
        
     # Neural network   
     layer_nodes = [4, 4, 1] 
@@ -114,8 +111,7 @@ if __name__ == "__main__":
     loss = 'rms'
         
     # Gradient descent
-    # TODO tolerance should be a function of the loss function
-    # for rms error, tolerance might scale as sqrt(x/Noutputs)   
+    # TODO adapt tolerance for specific loss functions
     xtolerance = 0.01
     tolerance = math.sqrt(xtolerance/num_inputs)       
     step_size = 0.005
@@ -129,6 +125,7 @@ if __name__ == "__main__":
     delta_tolerance = tolerance/20
     tolerances = [tolerance - x*delta_tolerance for x in range(num_tolerances)]
     
+    ## Run evals over combinations of training parameters.
     # for step, tol in zip(step_sizes, tolerances):
     #     for tol in range(num_tol_steps):
     #         curr_step_size = step_size

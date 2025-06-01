@@ -1,8 +1,15 @@
 from autograd import Value
 import random
 
+class Module:
+    def zero_grad(self):
+        for p in self.parameters():
+            p.grad = 0
 
-class Neuron:
+    def parameters(self):
+        return []
+
+class Neuron(Module):
     def __init__(self, nin, activation):
         self.w = [Value(random.uniform(-1, 1)) for _ in range(nin)]
         self.b = Value(random.uniform(-1, 1))
@@ -16,6 +23,9 @@ class Neuron:
     def parameters(self):
         return self.w + [self.b]
 
+    def __repr__(self):
+        return f"{'ReLU' if self.activation == 'relu' else 'tanh'}-Neuron({len(self.w)})"
+
 class Layer:
     def __init__(self, nin, nout, activation):
         self.neurons = [Neuron(nin, activation) for _ in range(nout)]
@@ -26,6 +36,9 @@ class Layer:
     
     def parameters(self):
         return [p for neuron in self.neurons for p in neuron.parameters()]
+
+    def __repr__(self):
+        return f"Layer with {nin} inputs and {nout} outputs"
     
 class MLP:
     def __init__(self, nin, nouts, activation, step):
@@ -48,3 +61,6 @@ class MLP:
     def update_parameters(self):
         for p in self.parameters():
             p.data += self.step * -p.grad
+
+    def __repr__(self):
+        return f"MLP {self.layers} layers."    
