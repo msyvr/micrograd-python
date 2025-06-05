@@ -27,3 +27,17 @@ Separately, given a configuration of the above parameters, training efficiency c
 
 
 ## TODO
+
+### Unit tests
+
+Ideally, validate the following in comparison to outputs using PyTorch:
+
+- confirm that the `Value` structure's methods work as intended
+- validate that { forward pass, backpropagation } work as intended
+- validate that training results closely approximate those with PyTorch
+
+### Evals
+Evals might be split into two categories:
+1. For given training data, model architecture, loss function, and activation function, identify optimal combinations of step size and number of epochs.
+2. Investigate relationship between quality of results and each of { training data sets, model architecture, loss function, and activation function }.
+
